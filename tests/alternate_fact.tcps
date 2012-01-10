@@ -1,0 +1,18 @@
+(def main (ret)
+    (fact ret 10))
+
+(def fact (ret i)
+    (= (lambda (isone)
+        (if ret isone
+            (lambda (ret) (ret 1))
+            (lambda (ret) (helper ret i)))
+    ) i 1)
+)
+
+(def helper (ret i)
+    (- (lambda (j)
+        (fact (lambda (f)
+            (* (lambda (m) (ret m)) i f))
+        j)
+    ) i 1)
+)

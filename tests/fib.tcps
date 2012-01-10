@@ -1,0 +1,18 @@
+(def main (ret) (fib ret 20))
+
+(def fib (ret i) 
+    (< (lambda (res)
+        (if ret res
+            (lambda (ret)
+                (ret i))
+            (lambda (ret)
+                (- (lambda (i1)
+                    (fib (lambda (f1)
+                        (- (lambda (i2)
+                            (fib (lambda (f2)
+                                (+ (lambda (final) (ret final)) f1 f2))
+                            i2))
+                        i1 1))
+                    i1))
+                i 1))))
+    i 2))

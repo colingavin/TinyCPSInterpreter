@@ -1,0 +1,40 @@
+(def main (ret) (hailstone ret 12312 0))
+
+(def isone (ret i)
+    (= ret i 1))
+
+(def iseven (ret i)
+    (% (lambda (rem)
+        (= ret rem 0))
+    i 2))
+
+(def hailinc (ret i s)
+    (+ (lambda (step)
+        (hailstone ret i step))
+    s 1))
+
+(def haileven (ret i s)
+    (* (lambda (half)
+        (hailinc ret half s))
+    i 0.5))
+
+(def hailodd (ret i s)
+    (* (lambda (triple)
+        (+ (lambda (plusone)
+            (hailinc ret plusone s))
+        triple 1))
+    i 3))
+
+(def hailcont (ret i s)
+    (iseven (lambda (ie)
+        (if ret ie
+            (lambda (ret) (haileven ret i s))
+            (lambda (ret) (hailodd ret i s))))
+    i))
+
+(def hailstone (ret i s)
+    (isone (lambda (io)
+        (if ret io
+            (lambda (ret) (ret s))
+            (lambda (ret) (hailcont ret i s))))
+    i))
